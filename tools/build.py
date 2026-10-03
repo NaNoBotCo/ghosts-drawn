@@ -379,10 +379,8 @@ def main():
             for f in ("card.jpg", "icon.svg"):
                 if (docs / f).exists():
                     shutil.copy2(docs / f, base / f)
+            shutil.copy2(ROOT / "motdang-card.json", base / "card.json")
             print(base)
-        mc = ROOT / "motdang-card.json"
-        if mc.exists():
-            shutil.copy2(mc, md / "assets" / "sites" / SLUG / "card.json")
 
 
 if __name__ == "__main__":
