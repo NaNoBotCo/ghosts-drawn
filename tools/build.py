@@ -6,6 +6,9 @@
 """
 import html, json, pathlib, shutil, sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import ogcards
+
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
 SLUG = "ghosts-drawn"
@@ -368,7 +371,8 @@ def build(url):
 def main():
     docs = ROOT / "docs"
     docs.mkdir(exist_ok=True)
-    (docs / "index.html").write_text(build(f"https://nanobotco.github.io/{SLUG}/"))
+    ogcards.copy(ROOT, docs)
+    (docs / "index.html").write_text(ogcards.apply(build(f"https://nanobotco.github.io/{SLUG}/"), "index.html", f"https://nanobotco.github.io/{SLUG}"))
     print("docs/index.html")
     if "--motdang" in sys.argv:
         md = ROOT.parent / "mot-dang"
